@@ -1,1 +1,27 @@
-
+--no_use_public_ips
+--service_account_email cloudsql-ivr@hsbc-11616597-feedzaieuqa-dev.iam.gserviceaccount.com
+--job_name gcs-pubsub-sql-fdr-ivr
+--staging_location  gs://hsbc-11616597-feedzaieuqa-dev-dataflow/pipelines/ivr/staging
+--project hsbc-11616597-feedzaieuqa-dev
+--region europe-west2
+--subnet regions/europe-west2/subnetworks/dataflow-europe-west2
+--runner DataFlowRunner
+--temp_location gs://hsbc-11616597-feedzaieuqa-dev-dataflow/pipelines/ivr/temp
+--max_num_workers 4
+--num_workers 1
+--disk_size_gb 100
+--setup_file ./src/main/setup.py
+--requirements_file ./src/main/requirements.txt
+--save_main_session true
+--autoscaling_algorithm THROUGHPUT_BASED
+--streaming
+--dataflow_kms_key projects/hsbc-6320774-kms-dev/locations/europe-west2/keyRings/hsbc-11616597-feedzaieuqa-dev/cryptoKeys/dataFlow
+--template_location gs://hsbc-11616597-feedzaieuqa-dev-dataflow/templates/gcs-pubsub-sql-fdr-ivr-new
+--logging_mode DEBUG
+--subscription projects/hsbc-11616597-feedzaieuqa-dev/subscriptions/ivr_notifications_sub
+--ivr_table_name ext_fraud_alert_schema.ext_fraud_alert
+--ivr_error_table_name hsbc-10534429-fdreu-dev.FZ_EU_FDR_DEV.ivr_errors
+--sql_instance hsbc-11616597-feedzaieuqa-dev:europe-west2:ext-fraud-db
+--username cloudsql-ivr@hsbc-11616597-feedzaieuqa-dev.iam
+--db_name ext-fraud-alert
+--topic_name projects/hsbc-11616597-feedzaieuqa-dev/topics/wpb-gb-fraud-alerts-ivr
